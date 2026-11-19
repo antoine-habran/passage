@@ -8,6 +8,7 @@ PLATFORMFILE := src/platform/$(shell uname | cut -d _ -f 1 | tr '[:upper:]' '[:l
 BASHCOMPDIR ?= $(PREFIX)/share/bash-completion/completions
 ZSHCOMPDIR ?= $(PREFIX)/share/zsh/site-functions
 FISHCOMPDIR ?= $(PREFIX)/share/fish/vendor_completions.d/
+NUCOMPDIR ?= $(PREFIX)/share/nushell/vendor/autoload
 
 ifneq ($(WITH_ALLCOMP),)
 WITH_BASHCOMP := $(WITH_ALLCOMP)
@@ -37,6 +38,7 @@ install-common:
 	@[ "$(WITH_BASHCOMP)" = "yes" ] || exit 0; install -v -d "$(DESTDIR)$(BASHCOMPDIR)" && install -m 0644 -v src/completion/pass.bash-completion "$(DESTDIR)$(BASHCOMPDIR)/passage"
 	@[ "$(WITH_ZSHCOMP)" = "yes" ] || exit 0; install -v -d "$(DESTDIR)$(ZSHCOMPDIR)" && install -m 0644 -v src/completion/pass.zsh-completion "$(DESTDIR)$(ZSHCOMPDIR)/_passage"
 	@[ "$(WITH_FISHCOMP)" = "yes" ] || exit 0; install -v -d "$(DESTDIR)$(FISHCOMPDIR)" && install -m 0644 -v src/completion/pass.fish-completion "$(DESTDIR)$(FISHCOMPDIR)/passage.fish"
+	@[ "$(WITH_NUCOMP)" = "yes" ] || exit 0; install -v -d "$(DESTDIR)$(NUCOMPDIR)" && install -m 0644 -v src/completion/passage-completions.nu "$(DESTDIR)$(NUCOMPDIR)/passage-completions.nu"
 
 
 ifneq ($(strip $(wildcard $(PLATFORMFILE))),)
@@ -60,5 +62,6 @@ uninstall:
 		"$(DESTDIR)$(BASHCOMPDIR)/passage" \
 		"$(DESTDIR)$(ZSHCOMPDIR)/_passage" \
 		"$(DESTDIR)$(FISHCOMPDIR)/passage.fish" \
+		"$(DESTDIR)$(NUCOMPDIR)/passage-completions.nu"
 
 .PHONY: install uninstall install-common clean

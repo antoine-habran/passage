@@ -24,3 +24,16 @@ needed. If you'd like to choose manually, you may set WITH_ALLCOMP,
 WITH_BASHCOMP, WITH_ZSHCOMP, or WITH_FISHCOMP to "yes" or "no". The
 exact paths of the completions can be controlled with BASHCOMPDIR,
 ZSHCOMPDIR, and FISHCOMPDIR.
+
+Nushell completions require Nushell 0.116 or later. Enable them separately
+with make install WITH_NUCOMP=yes.
+Use NUCOMPDIR to override the default installation directory,
+$(PREFIX)/share/nushell/vendor/autoload.
+
+To load completions directly from a checkout, run this in Nushell from
+the repository root:
+
+    use src/completion/passage-completions.nu *
+
+Press Tab after `passage show ` to complete entry names from PASSAGE_DIR,
+or from ~/.passage/store if PASSAGE_DIR is unset.
